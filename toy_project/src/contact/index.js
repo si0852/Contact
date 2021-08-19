@@ -12,6 +12,7 @@ const Contact = () => {
   }
 
   const keywordChange = (e) => {
+  setUser({});
   setInput(e.target.value);
    const keyword = contactData.filter(data => data.name.includes(e.target.value));
    setKeyword(keyword)
