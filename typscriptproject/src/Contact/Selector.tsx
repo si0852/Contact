@@ -1,5 +1,5 @@
 import {selector} from 'recoil';
-import {contactList, inputKeyword, detailInfo} from './Atom';
+import {contactList, inputKeyword, detailInfo, addDetail} from './Atom';
 
 export const searchList = selector({
     key: 'searchList',
@@ -20,5 +20,13 @@ export const returnInfo = selector({
     get: ({get}) => {
         const lInfo = get(detailInfo);
         return lInfo;
+    }
+})
+
+export const addViewChange = selector({
+    key: 'addViewChange',
+    get: ({get}) => {
+        const vCh = get(addDetail);
+        return vCh;
     }
 })
