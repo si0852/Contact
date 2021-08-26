@@ -1,10 +1,10 @@
 import './app.css';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {returnInfo, searchList} from './Selector';
-import {addDetail, contactList, detailInfo } from './Atom';
+import {addDetail, contactList, detailInfo, ContactDetail } from './Atom';
 
 const Result = () => {
-    const rDetailInfo:any = useRecoilValue(returnInfo);
+    const rDetailInfo:ContactDetail = useRecoilValue(returnInfo);
     const sList = useRecoilValue(searchList);
     const setVch = useSetRecoilState(addDetail);
     const setInfo = useSetRecoilState(detailInfo);
@@ -13,7 +13,7 @@ const Result = () => {
         setVch('update');
     }
 
-    const deleteClick = (data:any) => {
+    const deleteClick = (data:ContactDetail) => {
        const result =  sList.filter((oldList) => {
             if(oldList.id !== rDetailInfo.id){
                 return oldList;

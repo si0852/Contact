@@ -5,7 +5,7 @@ import {inputKeyword,detailInfo,addDetail } from './Atom';
 
 const Keyword = () => {
 
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState<string>('');
     const setKeyword = useSetRecoilState(inputKeyword);
     const setInfo = useSetRecoilState(detailInfo);
     const setAddChange = useSetRecoilState(addDetail);

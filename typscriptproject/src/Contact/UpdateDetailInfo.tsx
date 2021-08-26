@@ -2,16 +2,16 @@ import './app.css';
 import {useState} from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {returnInfo, searchList} from './Selector';
-import { contactList, addDetail, detailInfo } from './Atom';
+import { contactList, addDetail, detailInfo, ContactDetail } from './Atom';
 
 
 const UpdateDetailInfo = () => {
-    const updateDetailInfo:any = useRecoilValue(returnInfo);
+    const updateDetailInfo:ContactDetail = useRecoilValue(returnInfo);
     const sList = useRecoilValue(searchList);
     const setVch = useSetRecoilState(addDetail);
     const setInfo = useSetRecoilState(detailInfo);
     const setContactList = useSetRecoilState(contactList);
-    const [updateDetail, setUpdateDetail] = useState(updateDetailInfo);
+    const [updateDetail, setUpdateDetail] = useState<ContactDetail>(updateDetailInfo);
 
    
     const onChange = ({target:{value,name}}:any) => {

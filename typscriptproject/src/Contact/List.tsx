@@ -1,14 +1,14 @@
 import './app.css';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {searchList} from './Selector';
-import {detailInfo,addDetail, } from './Atom';
+import {detailInfo,addDetail, ContactDetail} from './Atom';
 
 const List = () => {
 
     const contactList = useRecoilValue(searchList);
     const setInfo = useSetRecoilState(detailInfo);
     const setVch = useSetRecoilState(addDetail);
-    const contactlClick = (data:any) => {
+    const contactlClick = (data:ContactDetail) => {
         setVch('result');
         setInfo(data);
     }

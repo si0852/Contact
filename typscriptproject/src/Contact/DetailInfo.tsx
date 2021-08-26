@@ -2,11 +2,11 @@ import './app.css';
 import {useState} from 'react';
 import { useRecoilValue, useSetRecoilState} from 'recoil';
 import {searchList} from './Selector';
-import {contactList, addDetail} from './Atom';
+import {contactList, addDetail, ContactDetail} from './Atom';
 
 const DetailInfo = () => {
     const setVch = useSetRecoilState(addDetail);
-    const [detail, setDetail] = useState({
+    const [detail, setDetail] = useState<ContactDetail>({
         "id": 0,
         "name": "",
         "department": "",
