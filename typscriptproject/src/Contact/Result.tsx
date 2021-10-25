@@ -1,29 +1,23 @@
 import './app.css';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
-import {returnInfo, searchList} from './Selector';
-import {addDetail, contactList, detailInfo, ContactDetail } from './Atom';
+import {returnInfo, } from './Selector';
+import {addDetail, receiveData,  getData } from './Atom';
 
 const Result = () => {
-    const rDetailInfo:ContactDetail = useRecoilValue(returnInfo);
-    const sList = useRecoilValue(searchList);
+    const rDetailInfo:receiveData = useRecoilValue(returnInfo);
     const setVch = useSetRecoilState(addDetail);
-    const setInfo = useSetRecoilState(detailInfo);
-    const setContactList = useSetRecoilState(contactList);
+    const setInfo = useSetRecoilState(getData);
     const updateClick = () => {
-        setVch('update');
+        setVch('updateview');
     }
 
-    const deleteClick = (data:ContactDetail) => {
-       const result =  sList.filter((oldList) => {
-            if(oldList.id !== rDetailInfo.id){
-                return oldList;
-            }
-            return;
-        })
-
-        setContactList(result);
+    const deleteClick = async (data:receiveData) => {
+        await fetch(`http://localhost:4000/contacts/delete/${data.id}`, {
+            method: "PUT",
+        }).then((response) => console.log(response));
         alert(data.name +"님이 삭제되었습니다.");
-        setInfo({id:0, name: '', department: '', phoneNumber: '', email: ''});
+        setInfo({ id: null, 
+            name: '', deptName: '', phone: '', mail: '', delYn: ''});
         setVch('result');
     }
     return (
@@ -32,12 +26,13 @@ const Result = () => {
           
               {rDetailInfo.name === '' && 
               <p className="emptyset">정보가 없습니다.</p>}
+              
               {rDetailInfo.name !== '' && 
                   <ul className="info">
                     <li>이름: {rDetailInfo.name}</li>
-                    <li>부서: {rDetailInfo.department}</li>
-                    <li>휴대폰: {rDetailInfo.phoneNumber}</li>
-                    <li>메일: {rDetailInfo.email}</li>
+                    <li>부서: {rDetailInfo.deptName}</li>
+                    <li>휴대폰: {rDetailInfo.phone}</li>
+                    <li>메일: {rDetailInfo.mail}</li>
                   </ul>}
                   {rDetailInfo.name !== '' && 
                      <p>---------------------------------</p>

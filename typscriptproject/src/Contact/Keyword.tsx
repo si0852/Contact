@@ -1,24 +1,51 @@
 import './app.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { useSetRecoilState } from 'recoil';
-import {inputKeyword,detailInfo,addDetail } from './Atom';
+import {inputKeyword,detailInfo,addDetail, receiveData, contactList , getData} from './Atom';
 
 const Keyword = () => {
 
     const [inputValue, setInputValue] = useState<string>('');
     const setKeyword = useSetRecoilState(inputKeyword);
-    const setInfo = useSetRecoilState(detailInfo);
+    //const setInfo = useSetRecoilState(detailInfo);
+    const setInfo = useSetRecoilState(getData);
     const setAddChange = useSetRecoilState(addDetail);
+    const setContactList = useSetRecoilState(contactList);
+    const setVch = useSetRecoilState(addDetail);
 
-    const onChange = (e:any) => {
+
+    useEffect(() => {
+        if(inputValue !== ''){
+            fetch(`http://localhost:4000/contacts/search/${inputValue}`)
+        .then(res =>  res.json())
+        .then(
+            (result:receiveData[]) => {
+              setContactList(result);
+             
+            },
+            (error:string) => {
+                console.log("error", error);
+            }
+        )
+        .finally(
+           
+            ()=>{
+                setInfo({id: null,
+                    name: '', deptName: '', phone: '', mail: '', delYn: ''});
+            }
+        )
+        }
+    }, [inputValue, setContactList, setInfo])
+
+    const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
         setKeyword(e.target.value);
         setAddChange('result');
-        setInfo({id:0, name: '', department: '', phoneNumber: '', email: ''});
+        
     }
 
     const onClick = () => {
-        setAddChange('add');
+        setAddChange('addview');
     }
 
   
@@ -31,3 +58,4 @@ const Keyword = () => {
 }
 
 export default Keyword;
+

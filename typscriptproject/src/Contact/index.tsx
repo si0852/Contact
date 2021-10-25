@@ -21,8 +21,9 @@ const Contact = () => {
             <List/>
         </div>
         {vCh ==='result' && <Result/>}
-        {vCh === 'add' && <DetailInfo/>}
-        {vCh === 'update' && <UpdateDetailInfo/>}
+        {vCh ==='default' && <Result/>}
+        {vCh === 'addview' && <DetailInfo/>}
+        {vCh === 'updateview' && <UpdateDetailInfo/>}
         </div>
     </div>
     )
